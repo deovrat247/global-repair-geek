@@ -1,0 +1,29 @@
+name: Global Repair geek
+
+on:
+  push:
+    branches:
+      - main  # Deploys when code is pushed to the "main" branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the code
+      uses: actions/checkout@v3
+      
+
+    - name: Upload to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.PROD_SSH_HOST }}  # FTP server address (e.g., ftp.sparshchildcare.com)
+        username: ${{ secrets.PROD_SSH_USERNAME }}  # FTP username
+        password: ${{ secrets.PROD_SSH_PASSWORD }}  # FTP password
+        local-dir: ./  # Directory containing the files to upload (use ./ for the root of the repository)
+        server-dir: /public_html/  # Target directory on the FTP server
+        exclude: |
+          .git*
+          .github/
+          README.md
+          *.yml
