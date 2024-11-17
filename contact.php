@@ -1,3 +1,39 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check honeypot fields - if any contain data, it's likely a bot
+    if (!empty($_POST['website']) || !empty($_POST['phone']) || !empty($_POST['company'])) {
+        // Silently exit for spam submissions
+        exit;
+    }
+    
+    $name = $_POST['your-name'];
+    $email = $_POST['your-email'];
+    $message = $_POST['your-message'];
+    
+    $to = "info@globalrepairgeek.com";
+    $subject = "New Contact Form Submission from " . $name;
+    
+    $email_content = "Name: " . $name . "\n";
+    $email_content .= "Email: " . $email . "\n\n";
+    $email_content .= "Message:\n" . $message . "\n";
+    
+    $headers = "From: " . $email . "\r\n";
+    $headers .= "Reply-To: " . $email . "\r\n";
+    $headers .= "X-Mailer: PHP/" . phpversion();
+    
+    $success = mail($to, $subject, $email_content, $headers);
+    
+    // Set session variable for message display
+    session_start();
+    $_SESSION['form_submitted'] = true;
+    $_SESSION['mail_success'] = $success;
+    
+    // Redirect to prevent form resubmission
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -84,6 +120,13 @@
                                         Drop us a line</h2>
                                     <div role="form" class="wpcf7" id="wpcf7-f323-p3427-o1" lang="en-US" dir="ltr">
                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="wpcf7-form">
+                                            <!-- Honeypot fields - hidden from regular users -->
+                                            <div style="display:none !important;">
+                                                <input type="text" name="website" autocomplete="off" />
+                                                <input type="text" name="phone" autocomplete="off" />
+                                                <input type="text" name="company" autocomplete="off" />
+                                            </div>
+                                            
                                             <p>
                                                 <span class="wpcf7-form-control-wrap your-name">
                                                     <input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="YOUR NAME" required />
@@ -112,31 +155,64 @@
             </div>
                          </div></div></section>
 
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['your-name'];
-    $email = $_POST['your-email'];
-    $message = $_POST['your-message'];
-    
-    $to = "info@globalrepairgeek.com";
-    $subject = "New Contact Form Submission from " . $name;
-    
-    $email_content = "Name: " . $name . "\n";
-    $email_content .= "Email: " . $email . "\n\n";
-    $email_content .= "Message:\n" . $message . "\n";
-    
-    $headers = "From: " . $email . "\r\n";
-    $headers .= "Reply-To: " . $email . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
-    
-    if(mail($to, $subject, $email_content, $headers)) {
-        echo "<script>alert('Thank you for your message. We will get back to you soon!');</script>";
-    } else {
-        echo "<script>alert('Sorry, there was an error sending your message. Please try again later.');</script>";
-    }
-}
-?>
-
 	<?php include "includes/footer.php" ?>
+
+	<!-- Response Modal -->
+	<div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="responseModalLabel">Message Status</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="text-center">
+						<div id="successMessage" style="display:none;">
+							<i class="fas fa-check-circle text-success" style="font-size: 48px;"></i>
+							<h4 class="mt-3">Thank You!</h4>
+							<p>We have received your message and will get back to you soon.</p>
+						</div>
+						<div id="errorMessage" style="display:none;">
+							<i class="fas fa-times-circle text-danger" style="font-size: 48px;"></i>
+							<h4 class="mt-3">Oops!</h4>
+							<p>Sorry, there was an error sending your message. Please try again later.</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add this JavaScript code -->
+	<script>
+	<?php
+	session_start();
+	if (isset($_SESSION['form_submitted'])) {
+		if ($_SESSION['mail_success']) {
+			echo '
+			$(document).ready(function() {
+				$("#successMessage").show();
+				$("#errorMessage").hide();
+				$("#responseModal").modal("show");
+			});';
+		} else {
+			echo '
+			$(document).ready(function() {
+				$("#successMessage").hide();
+				$("#errorMessage").show();
+				$("#responseModal").modal("show");
+			});';
+		}
+		// Clear the session variables
+		unset($_SESSION['form_submitted']);
+		unset($_SESSION['mail_success']);
+	}
+	?>
+	</script>
 </body>
 </html>
