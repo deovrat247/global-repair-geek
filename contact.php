@@ -1,4 +1,11 @@
 <?php
+// Force HTTPS
+if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+    $redirect = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    header("Location: " . $redirect);
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check honeypot fields - if any contain data, it's likely a bot
     if (!empty($_POST['website']) || !empty($_POST['phone']) || !empty($_POST['company'])) {
