@@ -21,7 +21,7 @@ jobs:
         username: ${{ secrets.PROD_SSH_USERNAME }}  # FTP username
         password: ${{ secrets.PROD_SSH_PASSWORD }}  # FTP password
         local-dir: ./  # Directory containing the files to upload (use ./ for the root of the repository)
-        server-dir: /public_html/  # Target directory on the FTP server
+        server-dir: /  # Target directory on the FTP server
         exclude: |
           .git*
           .github/
