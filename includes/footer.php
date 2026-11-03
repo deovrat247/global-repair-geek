@@ -51,11 +51,11 @@
                       		 		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 third-widget-area">
                       		 		    	<h5 class="widget-title"><span>Get in touch with us</span></h5>
                       		 		    		<p><b>Address : </b>108 Ash st NE New London MN 56273</p>
-    							<p><b>Contact Number : </b>1-334-557-0315</p>
+                            <p><b>Contact Number : </b>1-320-247-6747</p>
     							<p><b>Email : </b>larrydabdulm@gmail.com
                       		 		<br>
                       		 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;info@globalrepairgeek.com</p>
                       		 		<p><img src="https://s3-us-west-2.amazonaws.com/assets.checkout.carthook.com/mid_XXwOLw9G/1535570153358_Safe_Checkout-min.png" alt="Incubator" / style="width:250px">
     								</p>
                       		 		   </div></div></footer><div class="back-to-top"> <i class="fa fa-angle-up"></i></div> 
-                      		 		<div class="lower-footer"><div class="container"><div class="pull-left"> <span>&copy;  2019 All right reserved. By</span><a href="index.php" target="_blank"> L&A LLC</a></span></div></div></div>
+                            <div class="lower-footer"><div class="container"><div class="pull-left"> <span>&copy;  2019 All right reserved. By</span><a href="index.php" target="_blank"> L&A LLC</a></span></div></div></div>

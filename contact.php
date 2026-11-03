@@ -109,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <img width="60" height="60" src="https://www.keydesign-themes.com/incubator/wp-content/uploads/2016/01/ico3.png" class="attachment-full" alt="" />
                                             </div>
                                             <h4 class="service-heading" >CALL US NOW</h4>
-                                            <p >1-334-557-0315</p>
+                                            <p >1-320-247-6747</p>
                                             
                                           </div>
                                         </div>

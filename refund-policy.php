@@ -32,7 +32,7 @@
 												<i class=" fa" ></i>
 												<h2 class="service-heading" >CANCELLATION OF SERVICES</h2>
 												<ol>
-								 <li> You can cancel the services within 5-7 days after sign up by calling us at 334-557-0315 you can also email us at info@globalrepairgeek.com for cancellation.
+								 <li> You can cancel the services within 5-7 days after sign up by calling us at 1-320-247-6747 you can also email us at info@globalrepairgeek.com for cancellation.
  </li><br>
  <li>REFUND OF SERVICES
 <br>
