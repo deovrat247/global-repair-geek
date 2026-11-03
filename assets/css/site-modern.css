@@ -65,6 +65,28 @@ body h6 {
   line-height: 1.15;
 }
 
+.site-topbar-inner::before,
+.site-topbar-inner::after,
+.site-navbar-inner::before,
+.site-navbar-inner::after,
+.hero-grid::before,
+.hero-grid::after,
+.section-heading-modern::before,
+.section-heading-modern::after,
+.split-modern::before,
+.split-modern::after,
+.process-modern::before,
+.process-modern::after,
+.site-cta-inner::before,
+.site-cta-inner::after,
+.footer-grid::before,
+.footer-grid::after,
+.footer-bottom-inner::before,
+.footer-bottom-inner::after {
+  display: none;
+  content: none;
+}
+
 .skip-link {
   position: fixed;
   top: 8px;
@@ -142,8 +164,14 @@ body h6 {
   border-radius: 0;
 }
 
-.site-navbar-inner {
+.site-navbar .site-navbar-inner {
+  width: calc(100% - 30px) !important;
+  max-width: 1240px !important;
   min-height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .site-navbar .navbar-header {
@@ -155,6 +183,7 @@ body h6 {
   align-items: center;
   width: 164px;
   height: 80px;
+  margin: 0;
   padding: 10px 0;
 }
 
@@ -186,6 +215,12 @@ body h6 {
   font-size: 14px;
   font-weight: 650;
   line-height: 1;
+  white-space: nowrap;
+}
+
+.site-navbar #main-menu {
+  flex: 0 0 auto;
+  margin-left: auto;
 }
 
 .site-navbar .navbar-nav > li > a:hover,
@@ -1075,6 +1110,36 @@ body textarea {
   background: var(--brand-dark);
   transform: translateY(-2px);
 }
+
+/* Readable icon fallbacks keep controls clear if the icon font is unavailable. */
+.site-header .fa,
+.home-modern .fa,
+.site-cta .fa,
+.site-footer .fa,
+.back-to-top .fa {
+  font-family: Arial, sans-serif !important;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.site-header .fa-envelope-o::before,
+.site-footer .fa-envelope-o::before { content: "@"; }
+.site-header .fa-phone::before,
+.site-cta .fa-phone::before,
+.site-footer .fa-phone::before { content: "☎"; }
+.home-modern .fa-arrow-right::before,
+.site-footer .fa-arrow-right::before { content: "→"; }
+.home-modern .fa-check-circle::before,
+.home-modern .fa-check::before { content: "✓"; }
+.home-modern .fa-laptop::before { content: "PC"; font-size: 11px; }
+.home-modern .fa-line-chart::before { content: "↗"; }
+.home-modern .fa-shield::before { content: "◇"; }
+.home-modern .fa-database::before { content: "▤"; }
+.home-modern .fa-search::before { content: "⌕"; }
+.home-modern .fa-mouse-pointer::before { content: "↖"; }
+.home-modern .fa-bullhorn::before { content: "◆"; }
+.site-footer .fa-map-marker::before { content: "●"; }
+.back-to-top .fa-angle-up::before { content: "↑"; }
 
 @media (max-width: 1199px) {
   .site-navbar .navbar-nav > li > a {

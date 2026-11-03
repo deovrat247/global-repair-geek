@@ -11,19 +11,22 @@ jobs:
 
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v3
-      
+      uses: actions/checkout@v5
 
     - name: Upload to cPanel via FTP
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.6
       with:
-        server: ${{ secrets.PROD_SSH_HOST }}  # FTP server address (e.g., ftp.sparshchildcare.com)
-        username: ${{ secrets.PROD_SSH_USERNAME }}  # FTP username
-        password: ${{ secrets.PROD_SSH_PASSWORD }}  # FTP password
-        local-dir: ./  # Directory containing the files to upload (use ./ for the root of the repository)
-        server-dir: /  # Target directory on the FTP server
+        timeout: 120000
+        server: ${{ secrets.PROD_SSH_HOST }}
+        username: ${{ secrets.PROD_SSH_USERNAME }}
+        password: ${{ secrets.PROD_SSH_PASSWORD }}
+        local-dir: ./
+        server-dir: /public_html/
         exclude: |
-          .git*
-          .github/
+          **/.git*
+          **/.git*/**
+          .github/**
+          **/node_modules/**
+          .env
           README.md
           *.yml
