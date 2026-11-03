@@ -157,6 +157,8 @@ body h6 {
 }
 
 .site-navbar.navbar {
+  width: 100% !important;
+  max-width: none !important;
   min-height: 80px;
   margin: 0;
   background: transparent;
