@@ -21,7 +21,7 @@ jobs:
         username: ${{ secrets.PROD_SSH_USERNAME }}
         password: ${{ secrets.PROD_SSH_PASSWORD }}
         local-dir: ./
-        server-dir: /public_html/
+        server-dir: /public_html/globalrepairgeek
         exclude: |
           **/.git*
           **/.git*/**
