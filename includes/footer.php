@@ -60,3 +60,44 @@
 </footer>
 
 <a class="back-to-top" href="#" aria-label="Back to top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+
+<script>
+(function () {
+    var header = document.querySelector('.site-header');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Header shadow and back-to-top button appear once the page has moved.
+    var toTop = document.querySelector('.back-to-top');
+    function onScroll() {
+        if (header) { header.classList.toggle('is-scrolled', window.scrollY > 8); }
+        if (toTop) { toTop.classList.toggle('is-shown', window.scrollY > 600); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Smooth scrolling for in-page links such as "Explore services".
+    document.addEventListener('click', function (event) {
+        var link = event.target.closest ? event.target.closest('a[href^="#"]') : null;
+        if (!link || link.classList.contains('back-to-top')) { return; }
+        var id = link.getAttribute('href').slice(1);
+        var target = id ? document.getElementById(id) : null;
+        if (!target) { return; }
+        event.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+
+    // Fade sections in as they enter the viewport.
+    var items = document.querySelectorAll('[data-reveal]');
+    if (!items.length || reduceMotion || !('IntersectionObserver' in window)) { return; }
+    document.documentElement.classList.add('reveal-ready');
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+    items.forEach(function (item) { observer.observe(item); });
+})();
+</script>
