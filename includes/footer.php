@@ -35,7 +35,7 @@
             <ul>
                 <li><a href="about-us.php">About us</a></li>
                 <li><a href="portfolio.php">Portfolio</a></li>
-                <li><a href="pricingbox.php">Pricing</a></li>
+                <li><a href="pricingbox.php">SEO Pricing</a></li>
                 <li><a href="privacy-policy.php">Privacy Policy</a></li>
                 <li><a href="terms-conditions.php">Terms &amp; Conditions</a></li>
             </ul>
@@ -74,6 +74,17 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // Mobile menu: tapping a dropdown heading opens its list instead of closing the whole menu.
+    document.addEventListener('click', function (event) {
+        var toggle = event.target.closest ? event.target.closest('.site-navbar .dropdown-toggle') : null;
+        if (!toggle || window.innerWidth > 991) { return; }
+        event.preventDefault();
+        event.stopPropagation();
+        var item = toggle.parentNode;
+        var isOpen = item.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }, true);
 
     // Smooth scrolling for in-page links such as "Explore services".
     document.addEventListener('click', function (event) {

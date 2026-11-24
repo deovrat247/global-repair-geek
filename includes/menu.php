@@ -1,7 +1,7 @@
 <?php
 $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
 $servicePages = ['computer-services.php', 'seo-services.php', 'pay-per-link.php', 'website-promotion.php'];
-$pricingPages = ['pricingbox.php', 'pricing-mail.php'];
+$computerPrices = [100, 150, 200, 250, 300, 350, 400, 500];
 ?>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
@@ -44,7 +44,15 @@ $pricingPages = ['pricingbox.php', 'pricing-mail.php'];
                         </ul>
                     </li>
                     <li class="<?php echo $currentPage === 'portfolio.php' ? 'active' : ''; ?>"><a href="portfolio.php">Portfolio</a></li>
-                    <li class="<?php echo in_array($currentPage, $pricingPages, true) ? 'active' : ''; ?>"><a href="pricingbox.php">Pricing</a></li>
+                    <li class="<?php echo $currentPage === 'pricingbox.php' ? 'active' : ''; ?>"><a href="pricingbox.php">SEO Pricing</a></li>
+                    <li class="dropdown site-nav-prices <?php echo $currentPage === 'pricing-mail.php' ? 'active' : ''; ?>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Computer Services <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($computerPrices as $price): ?>
+                            <li><a href="pricing-mail.php?amount=<?php echo $price; ?>">$<?php echo $price; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
                     <li class="site-nav-cta <?php echo $currentPage === 'contact.php' ? 'active' : ''; ?>"><a href="contact.php">Contact us</a></li>
                 </ul>
             </div>

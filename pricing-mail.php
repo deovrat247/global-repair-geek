@@ -1,3 +1,11 @@
+<?php
+// Amount chosen from the "Computer Services" price menu (defaults to $100).
+$allowedAmounts = [100, 150, 200, 250, 300, 350, 400, 500];
+$selectedAmount = isset($_GET['amount']) ? (int) $_GET['amount'] : 100;
+if (!in_array($selectedAmount, $allowedAmounts, true)) {
+    $selectedAmount = 100;
+}
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -198,7 +206,7 @@ input:focus ~ .highlight {
         
             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
                 
-                <input type="text" name="amount" required value="Amount Choose: $100"  readonly  style="color:black" >
+                <input type="text" name="amount" required value="Amount Choose: $<?php echo $selectedAmount; ?>"  readonly  style="color:black" >
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <!--<label>Amount Choose</label>-->
