@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" id="wp-block-library-css" href="assets/css/style.min.css" type="text/css" media="all">
 <link rel="stylesheet" id="siteground-optimizer-combined-styles-header-css" href="assets/css/siteground-optimizer.css" type="text/css" media="all">
-<link rel="stylesheet" href="assets/css/site-modern.css" type="text/css" media="all">
+<link rel="stylesheet" href="assets/css/site-modern.css?v=<?php echo @filemtime(__DIR__ . '/../assets/css/site-modern.css'); ?>" type="text/css" media="all">
 
 <script src="assets/js/jquery/jquery.js"></script>
 <script src="assets/js/jquery/jquery-migrate.min.js"></script>

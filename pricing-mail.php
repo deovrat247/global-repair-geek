@@ -5,173 +5,18 @@ $selectedAmount = isset($_GET['amount']) ? (int) $_GET['amount'] : 100;
 if (!in_array($selectedAmount, $allowedAmounts, true)) {
     $selectedAmount = 100;
 }
+// Result of the last form submission (set by mail.php).
+$orderStatus = isset($_GET['order']) ? $_GET['order'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
 	<?php include "includes/head.php" ?>
-	<title>Pricing | L&A LLC in London</title>
+	<title>Computer Services Pricing | L&amp;A LLC</title>
 <meta name="description" content="">
 
 
-<style>
-    * {
-    box-sizing: border-box;
-}
 
-
-h2 {
-    text-align: center;
-    margin-bottom: 50px;
-    color: #fff;
-}
-
-
-
-/* form starting stylings ------------------------------- */
-.group {
-    position: relative;
-    margin-bottom: 35px;
-}
-
-input {
-    font-size: 18px;
-    padding: 5px 10px 10px 5px;
-    display: block;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #fff;
-    background: transparent;
-}
-
-    input:focus {
-        outline: none;
-    }
-
-/* LABEL ======================================= */
-label {
-    color: #fff;
-    font-size: 18px;
-    font-weight: normal;
-    position: absolute;
-    pointer-events: none;
-    left: 5px;
-    top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
-
-/* active state */
-input:focus ~ label, input:valid ~ label {
-    top: -20px;
-    font-size: 14px;
-    color: #fff;
-}
-
-/* BOTTOM BARS ================================= */
-.bar {
-    position: relative;
-    display: block;
-    width: 100%;
-}
-
-    .bar:before, .bar:after {
-        content: '';
-        height: 2px;
-        width: 0;
-        bottom: 1px;
-        position: absolute;
-        background: #fff;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-    }
-
-    .bar:before {
-        left: 50%;
-    }
-
-    .bar:after {
-        right: 50%;
-    }
-
-
-
-/* active state */
-input:focus ~ .bar:before, input:focus ~ .bar:after {
-    width: 50%;
-}
-
-/* HIGHLIGHTER ================================== */
-.highlight {
-    position: absolute;
-    height: 60%;
-    width: 100px;
-    top: 25%;
-    left: 0;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-/* active state */
-input:focus ~ .highlight {
-    -webkit-animation: inputHighlighter 0.3s ease;
-    -moz-animation: inputHighlighter 0.3s ease;
-    animation: inputHighlighter 0.3s ease;
-}
-
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-    from {
-        background: #fff;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
-
-@-moz-keyframes inputHighlighter {
-    from {
-        background: #fff;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
-
-@keyframes inputHighlighter {
-    from {
-        background: #fff;
-    }
-
-    to {
-        width: 0;
-        background: transparent;
-    }
-}
-
-
-#panel {
-    border: 1px solid rgb(200, 200, 200);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
-    background: -webkit-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%);
-    background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%); /* Standard syntax (must be last) */
-    
-    
-    border-radius: 4px;
-
-}
-
-</style>
 </head>
 <body>
 	
@@ -184,93 +29,104 @@ input:focus ~ .highlight {
 				<div class="wpb_column vc_column_container vc_col-sm-12">
 					<div class="vc_column-inner">
 						<div class="wpb_wrapper">
-							<h1 style="font-size: 44px;color: #ffffff;text-align: center" class="vc_custom_heading section-heading" >Pricing</h1>
+							<h1 style="font-size: 44px;color: #ffffff;text-align: center" class="vc_custom_heading section-heading" >Computer Services Pricing</h1>
 						</div>
 					</div>
 				</div>
-			</div><br><br>
-			
-<!--			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
-<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
-<!------ Include the above in your HEAD tag ---------->
+			</div>
 
+			<div class="checkout-modern">
+				<div class="container checkout-grid">
+					<aside class="checkout-summary" aria-label="Order summary">
+						<span class="eyebrow eyebrow-light">Computer services</span>
+						<h2>Your selected amount</h2>
+						<div class="checkout-amount">
+							<span>Total</span>
+							<strong>$<?php echo $selectedAmount; ?></strong>
+						</div>
 
-<div class="container">
+						<p class="checkout-label">Change amount</p>
+						<div class="checkout-chips">
+							<?php foreach ($allowedAmounts as $amount): ?>
+							<a class="checkout-chip<?php echo $amount === $selectedAmount ? ' is-active' : ''; ?>" href="pricing-mail.php?amount=<?php echo $amount; ?>"<?php echo $amount === $selectedAmount ? ' aria-current="true"' : ''; ?>>$<?php echo $amount; ?></a>
+							<?php endforeach; ?>
+						</div>
 
+						<div class="checkout-help">
+							<p>Questions before you buy?</p>
+							<a href="tel:+13202476747">1-320-247-6747</a>
+							<a href="mailto:info@globalrepairgeek.com">info@globalrepairgeek.com</a>
+						</div>
+						<a class="checkout-policy" href="refund-policy.php">Read our refund policy</a>
+					</aside>
 
-    <div class="col-lg-offset-2 col-lg-8  col-xs-12" id="panel">
-        <center><h2>Buy Now</h2></center>
+					<form class="checkout-form" id="order-form" method="post" action="mail.php">
+						<input type="hidden" name="amount" value="<?php echo $selectedAmount; ?>">
 
-        <form method="post" action="mail.php">
-        
-            <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                
-                <input type="text" name="amount" required value="Amount Choose: $<?php echo $selectedAmount; ?>"  readonly  style="color:black" >
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <!--<label>Amount Choose</label>-->
-            </div>
-            
-            <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="name" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Name</label>
-            </div>
-             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="textarea" name="address" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label  type="textarea">Address</label>
-            </div>
-            <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="mail" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Email ID</label>
-            </div>
+						<?php if ($orderStatus === 'sent'): ?>
+						<div class="checkout-notice is-success" role="status">
+							<strong>Thank you — your order request has been sent.</strong>
+							We’ll contact you shortly to confirm the details and arrange payment.
+						</div>
+						<?php elseif ($orderStatus === 'invalid'): ?>
+						<div class="checkout-notice is-error" role="alert">
+							<strong>Please check your details.</strong>
+							Every field is required and the email address must be valid.
+						</div>
+						<?php elseif ($orderStatus === 'failed'): ?>
+						<div class="checkout-notice is-error" role="alert">
+							<strong>Sorry, we couldn’t send your request.</strong>
+							Please try again, or call us on <a href="tel:+13202476747">1-320-247-6747</a>.
+						</div>
+						<?php endif; ?>
 
-            <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="number" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Phone No.</label>
-            </div>
-             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="textarea" name="address1" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label  type="textarea">Billing Address</label>
-            </div>
-            
-             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="cardnumber" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Card Number</label>
-            </div>
-             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="cvv" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>CVV</label>
-            </div>
-             <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <input type="text" name="expirydate" required  style="color:black">
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Expiry date </label>
-            </div>
+						<h2>Buy now</h2>
+						<p class="checkout-intro">Fill in your details and we’ll contact you to confirm your order and arrange payment.</p>
 
-           
-            <div class="group col-md-6  col-lg-6 col-sm-12 col-xs-12">
-                <center> <button type="submit" name="submit" class="btn btn-warning">Send <span class="glyphicon glyphicon-send"></span></button></center>
-            </div>
-        </form>
+						<fieldset>
+							<legend><span>1</span> Your details</legend>
+							<div class="checkout-fields">
+								<div class="checkout-field checkout-field-wide">
+									<label for="co-name">Full name</label>
+									<input type="text" id="co-name" name="name" autocomplete="name" maxlength="120" required>
+								</div>
+								<div class="checkout-field">
+									<label for="co-mail">Email</label>
+									<input type="email" id="co-mail" name="mail" autocomplete="email" maxlength="160" required>
+								</div>
+								<div class="checkout-field">
+									<label for="co-number">Phone number</label>
+									<input type="tel" id="co-number" name="number" autocomplete="tel" maxlength="40" required>
+								</div>
+							</div>
+						</fieldset>
 
-    </div>
-</div>
+						<fieldset>
+							<legend><span>2</span> Address</legend>
+							<div class="checkout-fields">
+								<div class="checkout-field checkout-field-wide">
+									<label for="co-address">Address</label>
+									<input type="text" id="co-address" name="address" autocomplete="street-address" maxlength="250" required>
+								</div>
+								<div class="checkout-field checkout-field-wide">
+									<label for="co-address1">Billing address</label>
+									<input type="text" id="co-address1" name="address1" maxlength="250" required>
+								</div>
+							</div>
+						</fieldset>
+
+						<!-- Honeypot: hidden from people, bots tend to fill it in. -->
+						<div class="checkout-hp" aria-hidden="true">
+							<label for="co-website">Leave this field empty</label>
+							<input type="text" id="co-website" name="website" tabindex="-1" autocomplete="off">
+						</div>
+
+						<button type="submit" name="submit" value="1" class="button button-accent checkout-submit">Place order · $<?php echo $selectedAmount; ?></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	</section>		               	
 	<?php include "includes/footer.php" ?>
